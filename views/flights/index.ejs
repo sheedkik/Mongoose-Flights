@@ -1,5 +1,16 @@
-<%- include('./partials/header') %>
+<%- include('../partials/header') %>
 
-<h2>Home Page</h2>
+<ul>
+    <% flights.forEach(function(f) { %>
+        <li>
+            <form action="/flights/<%= f.id %>?_Method=DELETE"
+                class="delete-form" method="POST">
+                <button type=""submit">Remove</button>
+                </form>
+                <%= f.flight %>
+        </li>
+        <% }) %>
+</ul>
+<a href="flights/new">Add Flight</a>
 
-<%- include('./partials/footer') %>
+<%- include('../partials/footer') %>
