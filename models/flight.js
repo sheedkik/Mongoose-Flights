@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const  Schema  = mongoose.Schema
-
+const Schema  = mongoose.Schema
 
 const destinationSchema = new Schema({
     airport: {
@@ -12,32 +11,37 @@ const destinationSchema = new Schema({
     arrival: {
         type: Date,
         required: true
+    },
+    target: {
+        type: String,
+        required: true
     }
+}, {
+    timestamps: true
 })
 
 
-const flights = new Schema({
+const flightSchema = new Schema({
     title: { type: String, required: true},
+
   airline: {
     type: String,
     required: true,
     enum: ["American", "Southwest", "United"]
   },
+
   airport: {
     type: String,
     required: true,
-    enum: ["AUS", "DFW", "DEN", "LAX", "SAN", "PHX"],
-    default: function() {
-        return "DEN"
-    }
   },
+
   flightNo: {
     type: Number,
     required: true,
     min: 10,
     max: 9999,
-
   },
+
   departs: {
     type: Date,
     required: true,
@@ -46,7 +50,10 @@ const flights = new Schema({
         oneYearFuture.setFullYear(oneYearFuture.getFullYear() + 1)
         return oneYearFuture
     }
-  }
+},
+
+destinations: [destinationSchema]
+
 }, {
   timestamps: true
 });
@@ -78,4 +85,4 @@ function deleteOne(id) {
     const idx = flights.findIndex(flight => flight.id === id)
     flights.splice(idx, 1)
 }
-module.exports = mongoose.model('Flight', flights);
+module.exports = mongoose.model('Flight', flightSchema);

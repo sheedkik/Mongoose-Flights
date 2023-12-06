@@ -16,12 +16,11 @@ async function index(req, res) {
   }
 
 async function show(req, res) {
-    const flight = await Flight.findById(req.params.id).populate('flight');
-    const flightNum = await Flight.findById(req.params.id).populate('flightNum');
+    const flight = await Flight.findById(req.params.id).populate('airline');
+    const flightNo = await Flight.findById(req.params.id).populate('flightNo');
     const airport = await Flight.findById(req.params.id).populate('airport');
     const departs = await Flight.findById(req.params.id).populate('departs');
-
-    res.render('flights/show', { title: 'Flight Detail', flight, flightNum, airport, departs });
+    res.render('flights/show', { title: 'Flight Detail', flight, flightNo, airport, departs });
   }
 
 function newFlight(req, res) {
