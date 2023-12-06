@@ -1,6 +1,14 @@
-<%- include("../partials/header") %>
+<%- include('../partials/header') %>
 
-    <h3><%= flight.flight %></h3>
-    
-<%- include("../partials/footer") %>
+<section id="show-page">
+  <div>Title: </div>
+  <div><%= flight.title %></div>
+  <div>Airline: </div>
+  <div><%= flight.airline %></div>
+  <div>Flight #: </div>
+  <div><%= flight.flightNo %></div>
+  <div>Airport: </div>
+  <div><%= flight.airport %></div>
+</section>
 
+<%- include('../partials/footer') %>
