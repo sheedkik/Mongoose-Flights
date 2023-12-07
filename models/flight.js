@@ -20,7 +20,6 @@ const destinationSchema = new Schema({
     timestamps: true
 })
 
-
 const flightSchema = new Schema({
     title: { type: String, required: true},
 
@@ -41,6 +40,11 @@ const flightSchema = new Schema({
     min: 10,
     max: 9999,
   },
+
+  tickets: [{
+    type: Schema.Types.ObjectId,
+    ref: "Ticket"
+  }],
 
   departs: {
     type: Date,

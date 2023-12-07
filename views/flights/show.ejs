@@ -6,8 +6,24 @@
   <div>Flight #: <%= flight.flightNo %></div>
   <div>Airport: <%= flight.airport %></div>
   <div>Destination: <%= flight.destination %></div>
+  <div>Tickets:</div>
+  <ul>
+    <%- flight.tickets.map(t => 
+      `<li>${t.seat}  -  $<small>${t.price}</small></li>`
+    ).join('') %>
+  </ul>
 
 </section>
+
+<form id="add-ticket-to-flight" action="/flights/<%= flight._id %>/tickets" method="POST">
+<select name="ticketId">
+  <% tickets.forEach(ticket => { %>
+    <option value="<%= ticket._id %>"><%= ticket.seat %> - $ <%= ticket.price %></option>
+    <% }) %>
+</select>
+<button type="submit">Add Ticket</button>
+</form>
+
 
 <br><br><h2>Add Destination</h2>
 <form id="add-destination-form" method="POST" action="/flights/<%= flight._id %>/details">

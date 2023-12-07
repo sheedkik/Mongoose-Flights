@@ -1,4 +1,5 @@
 const Flight = require("../models/flight")
+const Ticket = require("../models/ticket")
 
 module.exports = {
     index,
@@ -16,11 +17,20 @@ async function index(req, res) {
   }
 
 async function show(req, res) {
-    const flight = await Flight.findById(req.params.id).populate('airline');
-    const flightNo = await Flight.findById(req.params.id).populate('flightNo');
-    const airport = await Flight.findById(req.params.id).populate('airport');
-    const departs = await Flight.findById(req.params.id).populate('departs');
-    res.render('flights/show', { title: 'Flight Detail', flight, flightNo, airport, departs });
+    // const flight = await Flight.findById(req.params.id).populate('airline');
+    // const flightNo = await Flight.findById(req.params.id).populate('flightNo');
+    // const airport = await Flight.findById(req.params.id).populate('airport');
+    // const departs = await Flight.findById(req.params.id).populate('departs');
+    // const flightTickets = await Flight.findById(req.params.id).populate('tickets');
+    // const tickets = await Ticket.find({_id: { $nin: flight.tickets } }).sort("seat")
+    
+    // res.render('flights/show', { title: 'Flight Detail', flight, flightNo, airport, departs, flightTickets, tickets });
+    const flight = await Flight.findById(req.params.id).populate('airline').populate('tickets');
+
+    const flightTickets = await Ticket.find({ _id: { $nin: flight.tickets } }).sort("seat");
+
+    res.render('flights/show', { title: 'Flight Detail', flight, flightTickets, tickets: flightTickets });
+    console.log(flight.tickets)
   }
 
 function newFlight(req, res) {
@@ -38,7 +48,7 @@ async function create(req, res) {
       // Update this line because now we need the _id of the new movie
       const flight = await Flight.create(req.body);
       // Redirect to the new movie's show functionality 
-      res.redirect(`/flights`);
+      res.redirect(`/flights/${flight._id}`);
     } catch (err) {
       // Typically some sort of validation error
       console.log(err);

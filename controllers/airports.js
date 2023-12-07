@@ -10,7 +10,7 @@ module.exports = {
 async function addToFlight(req, res) {
   const flight = await Flight.findById(req.params.id);
   flight.airport.push(req.body.performerId);
-  await movie.save();
+  await flight.save();
   res.redirect(`/flights/${flight._id}`);
 }
 

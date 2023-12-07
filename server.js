@@ -14,6 +14,7 @@ var indexRouter = require('./routes/index');
 var flightsRouter = require('./routes/flights');
 const airportsRouter = require('./routes/airports');
 const detailsRouter = require('./routes/details')
+const ticketsRouter = require('./routes/tickets')
 
 var app = express();
 
@@ -28,9 +29,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride("_method"))
 
-app.use('/', indexRouter);
-app.use('/flights', flightsRouter);
+app.use('/', indexRouter)
+app.use('/flights', flightsRouter)
 app.use('/', detailsRouter)
+app.use('/', ticketsRouter)
 app.use('/', airportsRouter)
 
 // catch 404 and forward to error handler
